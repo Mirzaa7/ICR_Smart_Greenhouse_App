@@ -51,15 +51,6 @@ export default function App() {
           options={({ navigation }) => ({
             title: "List of all greenhouses",
             headerTitleAlign: "center",
-            headerRight: () => (
-              <Pressable
-                onPress={() => {
-                  navigation.navigate("AddGreenhouse");
-                }}
-              >
-                <Text>Add</Text>
-              </Pressable>
-            ),
           })}
         />
         <Stack.Screen
