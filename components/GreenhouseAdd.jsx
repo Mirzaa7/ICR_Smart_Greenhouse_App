@@ -11,11 +11,10 @@ import {
 function GreenhouseAdd({ route, navigation }) {
   const { listOfGreenhouses, setListOfGreenhouses } = route.params;
 
-  const [name, setName] = useState(""); // bolje je napraviti objekat kao state
-  let greenHouseElement = {
-    name: "",
-  };
-  let newGreenhouseList = listOfGreenhouses;
+  const [greenHouseName, setgreenHouseName] = useState("");
+  const [plantName, setPlantName] = useState("");
+  const [seedDate, setseedDate] = useState("");
+
   return (
     <View style={styles.login_container}>
       <View style={styles.welcomeElement}>
@@ -28,26 +27,48 @@ function GreenhouseAdd({ route, navigation }) {
         placeholder="Name of your greenhouse"
         style={styles.input}
         onChangeText={(newText) => {
-          setName(newText);
+          setgreenHouseName(newText);
         }}
-        value={name}
-        name="name"
+        value={greenHouseName}
+        name="greenHouseName"
+      />
+
+      <TextInput
+        placeholder="Name of the plant"
+        style={styles.input}
+        onChangeText={(newText) => {
+          setPlantName(newText);
+        }}
+        value={plantName}
+        name="plantName"
+      />
+      <TextInput
+        placeholder="Seed date"
+        style={styles.input}
+        onChangeText={(newText) => {
+          setseedDate(newText);
+        }}
+        value={seedDate}
+        name="seedDate"
       />
 
       <Pressable
         style={styles.login_button}
         onPress={() => {
-          if (name != "") {
+          if (greenHouseName != "" && plantName != "" && seedDate != "") {
             setListOfGreenhouses([
               ...listOfGreenhouses,
               {
-                name: name,
+                greenHouseName: greenHouseName,
+                plantName: plantName,
+                seedDate: seedDate,
               },
             ]);
-            setName("");
+            setgreenHouseName("");
+            setPlantName("");
             navigation.navigate("Greenhouses");
           } else {
-            alert("Please enter the name for your greenhouse!");
+            alert("Please enter the required parameters for your greenhouse!");
           }
         }}
       >

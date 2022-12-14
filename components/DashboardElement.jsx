@@ -17,7 +17,6 @@ function DashboardElement({ name, number, image, color, navigation }) {
         }
       }
       onPress={() => {
-        console.log("Evo");
         if (name === "Total Greenhouses") {
           navigation.navigate("Greenhouses");
         }

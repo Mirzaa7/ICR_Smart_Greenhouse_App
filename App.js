@@ -9,6 +9,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import GreenHouseList from "./components/GreenHouseList";
 
 import GreenhouseAdd from "./components/GreenhouseAdd";
+import GreenHouse from "./components/GreenHouse";
 
 const Stack = createNativeStackNavigator();
 
@@ -60,6 +61,15 @@ export default function App() {
             title: "Create a greenhouse",
             headerTitleAlign: "center",
           }}
+        />
+
+        <Stack.Screen
+          name="GreenhouseItem"
+          component={GreenHouse}
+          options={({ route }) => ({
+            title: route.params.greenHouseName,
+            headerTitleAlign: "center",
+          })}
         />
       </Stack.Navigator>
     </NavigationContainer>

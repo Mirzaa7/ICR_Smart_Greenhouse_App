@@ -8,8 +8,16 @@ function GreenHouseList({ navigation }) {
   return (
     <ScrollView contentContainerStyle={styles.greenHouseListElement}>
       <View style={styles.greenHouseList}>
-        {listOfGreenhouses.map((item) => {
-          return <GreenhouseItem name={item.name} />;
+        {listOfGreenhouses.map((item, itemIndex) => {
+          return (
+            <GreenhouseItem
+              key={itemIndex}
+              greenHouseName={item.greenHouseName}
+              plantName={item.plantName}
+              seedDate={item.seedDate}
+              navigation={navigation}
+            />
+          );
         })}
       </View>
       <Pressable
