@@ -1,17 +1,31 @@
-import React from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import React, { useContext, useEffect, useState } from "react";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import DashboardElement from "./DashboardElement";
 
 import dashboardItems from "./DashboardItems";
+import Navbar from "./Navbar";
+import GlobalProvider, { GlobalContext } from "./StateProvider";
 
 function Dashboard({ navigation, route }) {
-  const { username } = route.params;
+  //const { username } = route.params;
+
+  const {
+    listOfGreenhousesState: { listOfGreenhouses, username },
+    dispatch,
+  } = useContext(GlobalContext);
 
   return (
-    <View style={{ padding: 0 }}>
+    <View
+      style={{
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+      }}
+    >
       <Text style={styles.welcomeTitle}>Welcome {username}!</Text>
-      <ScrollView contentContainerStyle={styles.dashboard}>
+      <View style={styles.dashboard}>
         {dashboardItems.map((item, itemIndex) => {
           return (
             <DashboardElement
@@ -24,7 +38,8 @@ function Dashboard({ navigation, route }) {
             />
           );
         })}
-      </ScrollView>
+      </View>
+      <Navbar navigation={navigation} />
     </View>
   );
 }
@@ -43,6 +58,14 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 18,
     fontWeight: "bold",
+  },
+  navbar: {
+    backgroundColor: "orange",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-evenly",
+    height: "10%",
   },
 });
 

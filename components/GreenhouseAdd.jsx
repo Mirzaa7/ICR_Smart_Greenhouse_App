@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Image,
   Pressable,
@@ -7,13 +7,17 @@ import {
   TextInput,
   View,
 } from "react-native";
+import { GlobalContext } from "./StateProvider";
 
-function GreenhouseAdd({ route, navigation }) {
-  const { listOfGreenhouses, setListOfGreenhouses } = route.params;
-
+function GreenhouseAdd({ navigation }) {
   const [greenHouseName, setgreenHouseName] = useState("");
   const [plantName, setPlantName] = useState("");
   const [seedDate, setseedDate] = useState("");
+
+  const {
+    listOfGreenhousesState: { listOfGreenhouses },
+    dispatch,
+  } = useContext(GlobalContext);
 
   return (
     <View style={styles.login_container}>
@@ -56,14 +60,15 @@ function GreenhouseAdd({ route, navigation }) {
         style={styles.login_button}
         onPress={() => {
           if (greenHouseName != "" && plantName != "" && seedDate != "") {
-            setListOfGreenhouses([
-              ...listOfGreenhouses,
-              {
+            dispatch({
+              type: "ADD",
+              payload: {
                 greenHouseName: greenHouseName,
                 plantName: plantName,
                 seedDate: seedDate,
               },
-            ]);
+            });
+
             setgreenHouseName("");
             setPlantName("");
             navigation.navigate("Greenhouses");

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Button,
   Image,
@@ -8,10 +8,13 @@ import {
   TextInput,
   View,
 } from "react-native";
+import { GlobalContext } from "./StateProvider";
 
 function Login({ navigation }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const { dispatch } = useContext(GlobalContext);
 
   return (
     <View style={styles.login_container}>
@@ -49,9 +52,11 @@ function Login({ navigation }) {
           setUsername("");
           setPassword("");
           if (username != "" && password != "") {
-            navigation.navigate("Dashboard", {
-              username: username,
+            dispatch({
+              type: "ADD_USER",
+              payload: username,
             });
+            navigation.navigate("Dashboard");
           } else {
             alert("Please enter your credentials!");
           }
